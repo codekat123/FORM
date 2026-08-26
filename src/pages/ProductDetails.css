@@ -1,0 +1,147 @@
+.product-details {                                                                                                                                                                                     
+  padding-block: var(--space-8);                                                                                                                                                                       
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__grid {                                                                                                                                                                               
+  display: grid;                                                                                                                                                                                       
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);                                                                                                                                            
+  gap: var(--space-8);                                                                                                                                                                                 
+  align-items: start;                                                                                                                                                                                  
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__gallery {                                                                                                                                                                            
+  background: var(--color-surface);                                                                                                                                                                    
+  border-radius: var(--radius-lg);                                                                                                                                                                     
+  overflow: hidden;                                                                                                                                                                                    
+  display: flex;                                                                                                                                                                                       
+  align-items: center;                                                                                                                                                                                 
+  justify-content: center;                                                                                                                                                                             
+  aspect-ratio: 1 / 1;                                                                                                                                                                                 
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__image {                                                                                                                                                                              
+  width: 100%;                                                                                                                                                                                         
+  height: 100%;                                                                                                                                                                                        
+  object-fit: cover;                                                                                                                                                                                   
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__info {                                                                                                                                                                               
+  display: flex;                                                                                                                                                                                       
+  flex-direction: column;                                                                                                                                                                              
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__category {                                                                                                                                                                           
+  color: var(--color-accent);                                                                                                                                                                          
+  font-size: var(--font-size-sm);                                                                                                                                                                      
+  font-weight: 500;                                                                                                                                                                                    
+  letter-spacing: 0.08em;                                                                                                                                                                              
+  text-transform: uppercase;                                                                                                                                                                           
+  margin-bottom: var(--space-2);                                                                                                                                                                       
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__title {                                                                                                                                                                              
+  font-size: clamp(2rem, 4vw, 3rem);                                                                                                                                                                   
+  line-height: var(--line-height-tight);                                                                                                                                                               
+  margin-bottom: var(--space-3);                                                                                                                                                                       
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__price {                                                                                                                                                                              
+  font-size: var(--font-size-xl);                                                                                                                                                                      
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+}
+
+.product-details__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-muted);
+  max-width: 500px;
+}
+
+.product-details--not-found {
+  padding-block: var(--space-9);
+  text-align: center;
+}
+
+.product-details--not-found h2 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-3);
+}
+
+.product-details__back-link {
+  display: inline-block;
+  margin-top: var(--space-5);
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+/* Variants & Actions */                                                                                                                                                                               
+.product-details__variants {                                                                                                                                                                           
+  margin-top: var(--space-6);                                                                                                                                                                          
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__variants-label {                                                                                                                                                                     
+  display: block;                                                                                                                                                                                      
+  font-size: var(--font-size-sm);                                                                                                                                                                      
+  color: var(--color-text-muted);                                                                                                                                                                      
+  margin-bottom: var(--space-3);                                                                                                                                                                       
+  text-transform: uppercase;                                                                                                                                                                           
+  letter-spacing: 0.05em;                                                                                                                                                                              
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.product-details__variants-list {                                                                                                                                                                      
+  display: flex;                                                                                                                                                                                       
+  flex-wrap: wrap;                                                                                                                                                                                     
+  gap: var(--space-3);                                                                                                                                                                                 
+}                                                                                                                                                                                                      
+                                                                                                                                                                                                       
+.variant-btn {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.variant-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.variant-btn--active {
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  border-color: var(--color-text);
+  font-weight: 500;
+}
+
+.product-details__add-btn {
+  margin-top: var(--space-7);
+  background: var(--color-text);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 100%;
+  max-width: 320px;
+}
+
+.product-details__add-btn:hover {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+}
+@media (max-width: 850px) {
+  .product-details__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
