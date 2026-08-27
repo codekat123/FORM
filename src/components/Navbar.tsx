@@ -14,7 +14,7 @@ function Navbar() {
           <Link to="/">About</Link>
         </nav>
 
-        <Link className="navbar__cart" to="/">
+        <Link className="navbar__cart" to="/cart">
           Cart
         </Link>
       </div>
