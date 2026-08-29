@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar() {
@@ -9,13 +9,35 @@ function Navbar() {
           FORM
         </Link>
 
-        <nav className="navbar__links" aria-label="Main navigation">
-          <Link to="/shop">Shop</Link>
-          <Link to="/">About</Link>
+        <nav className="navbar__nav" aria-label="Main navigation">
+          <NavLink
+            to="/shop"
+            className={({ isActive }) =>
+              isActive
+                ? 'navbar__link navbar__link--active'
+                : 'navbar__link'
+            }
+          >
+            Shop
+          </NavLink>
+
+          <NavLink
+            to="/account"
+            className={({ isActive }) =>
+              isActive
+                ? 'navbar__link navbar__link--active'
+                : 'navbar__link'
+            }
+          >
+            Account
+          </NavLink>
         </nav>
 
         <Link className="navbar__cart" to="/cart">
-          Cart
+          <span>Cart</span>
+          <span className="navbar__cart-arrow" aria-hidden="true">
+            →
+          </span>
         </Link>
       </div>
     </header>

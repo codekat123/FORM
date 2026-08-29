@@ -1,5 +1,6 @@
 .navbar {
   border-bottom: 1px solid var(--color-border);
+  background: var(--color-background);
 }
 
 .navbar__inner {
@@ -7,38 +8,123 @@
   align-items: center;
   justify-content: space-between;
 
-  height: 72px;
+  min-height: 72px;
 }
+
+/* Brand */
 
 .navbar__brand {
   color: var(--color-text);
 
   font-size: var(--font-size-lg);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
+
+  transition: opacity var(--transition-fast);
 }
 
-.navbar__links {
+.navbar__brand:hover {
+  opacity: 0.65;
+}
+
+/* Navigation */
+
+.navbar__nav {
   display: flex;
   align-items: center;
   gap: var(--space-6);
 }
 
-.navbar__links a,
-.navbar__cart {
+.navbar__link {
+  position: relative;
+
+  padding-block: var(--space-2);
+
   color: var(--color-text-muted);
 
   font-size: var(--font-size-sm);
-  transition:
-    color var(--transition-fast),
-    opacity var(--transition-fast);
+  font-weight: 500;
+
+  transition: color var(--transition-fast);
 }
 
-.navbar__links a:hover,
-.navbar__cart:hover {
+.navbar__link::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 1px;
+
+  background: var(--color-text);
+
+  content: '';
+
+  transform: scaleX(0);
+  transform-origin: center;
+
+  transition: transform var(--transition-fast);
+}
+
+.navbar__link:hover {
   color: var(--color-text);
 }
+
+.navbar__link:hover::after,
+.navbar__link--active::after {
+  transform: scaleX(1);
+}
+
+.navbar__link--active {
+  color: var(--color-text);
+}
+
+/* Cart */
 
 .navbar__cart {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
   color: var(--color-text);
+
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.navbar__cart-arrow {
+  transition: transform var(--transition-fast);
+}
+
+.navbar__cart:hover {
+  opacity: 0.7;
+}
+
+.navbar__cart:hover .navbar__cart-arrow {
+  transform: translateX(3px);
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .navbar__inner {
+    min-height: 64px;
+  }
+
+  .navbar__nav {
+    gap: var(--space-4);
+  }
+
+  .navbar__link,
+  .navbar__cart {
+    font-size: var(--font-size-xs);
+  }
+
+  .navbar__cart-arrow {
+    display: none;
+  }
 }

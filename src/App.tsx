@@ -9,6 +9,8 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Login from './pages/login'
 import AuthLayout from './components/AuthLayout'
+import Register from './pages/Register'
+import Account from './pages/Account'
 
 function App() {
   return (
@@ -19,9 +21,11 @@ function App() {
         <Route path="/shop/:productId" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/Account" element={<Account />} />
       </Route>
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
