@@ -1,4 +1,4 @@
-import './Account.css'
+import '../css/Account.css'
 
 function Account() {
   return (

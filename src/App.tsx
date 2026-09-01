@@ -1,16 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
 
-import Layout from './components/Layout'
-import Home from './pages/Home'
-import Shop from './pages/Shop'
-import ProductDetail from './pages/ProductDetail'
-import NotFound from './pages/NotFound'
-import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
-import Login from './pages/login'
-import AuthLayout from './components/AuthLayout'
-import Register from './pages/Register'
-import Account from './pages/Account'
+import Layout from './components/views/Layout'
+import Home from './pages/views/Home'
+import Shop from './pages/views/Shop'
+import ProductDetail from './pages/views/ProductDetail'
+import NotFound from './pages/views/NotFound'
+import Cart from './pages/views/Cart'
+import Checkout from './pages/views/Checkout'
+import Login from './pages/views/login'
+import AuthLayout from './components/views/AuthLayout'
+import Register from './pages/views/Register'
+import Account from './pages/views/Account'
 
 function App() {
   return (

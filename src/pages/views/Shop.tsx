@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import ProductGrid from '../components/ProductGrid'
+import ProductGrid from '../../components/views/ProductGrid'
 import {
   getProducts,
   getProductsByCategory,
-} from '../services/products'
-import type { Product } from '../types/product'
-import './Shop.css'
+} from '../../services/products'
+import type { Product } from '../../types/product'
+import '../css/Shop.css'
 
 const ELECTRONICS_CATEGORIES = [
   'smartphones',

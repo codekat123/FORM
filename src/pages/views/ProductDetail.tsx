@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getProduct } from '../services/products'
-import type { Product } from '../types/product'
-import './ProductDetails.css'
+import { getProduct } from '../../services/products'
+import type { Product } from '../../types/product'
+import '../css/ProductDetails.css'
 
 function ProductDetails() {
   const { productId } = useParams<{ productId: string }>()
@@ -16,6 +16,8 @@ function ProductDetails() {
   )
 
   useEffect(() => {
+    const controller = new AbortController()
+    
     if (!productId) {
       setError('Product not found.')
       setIsLoading(false)
@@ -24,8 +26,9 @@ function ProductDetails() {
 
     setIsLoading(true)
     setError(null)
+    setProduct(null)
 
-    getProduct(productId)
+    getProduct(productId, controller.signal)
       .then((data) => {
         setProduct(data)
         setSelectedImage(data.images[0] ?? null)
@@ -35,12 +38,19 @@ function ProductDetails() {
         }
       })
       .catch((error) => {
+        if (error.name === 'AbortError') {
+          return
+        }
+
         console.error(error)
         setError('Product not found.')
       })
       .finally(() => {
         setIsLoading(false)
-      })
+  })      
+  return () => {
+        controller.abort()
+      }
   }, [productId])
 
   if (isLoading) {

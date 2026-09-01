@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import type { MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
-import type { Product } from '../types/product'
-import './ProductCard.css'
+import type { Product } from '../../types/product'
+import '../css/ProductCard.css'
 
 function ProductCard({ product }: { product: Product }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)

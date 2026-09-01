@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import formChargeImage from '../assets/products/form-charge.png'
-import { getCategoryPreview } from '../services/products'
-import './Home.css'
+import formChargeImage from '../../assets/products/form-charge.png'
+import { getCategoryPreview } from '../../services/products'
+import '../css/Home.css'
 
 const COLLECTIONS = [
   {

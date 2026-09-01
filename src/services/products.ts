@@ -74,8 +74,10 @@ export async function getProducts(): Promise<ProductListResponse> {
     limit: products.length,
   }
 }
-export async function getProduct(id: string): Promise<Product> {
-  const response = await fetch(`${API_URL}/products/${id}`)
+export async function getProduct(id: string, signal?:AbortSignal): Promise<Product> {
+  const response = await fetch(`${API_URL}/products/${id}`,{
+    signal,
+  })
 
   if (!response.ok) {
     throw new Error(`Failed to fetch product: ${response.status}`)

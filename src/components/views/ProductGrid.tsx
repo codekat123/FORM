@@ -1,6 +1,6 @@
-import type { Product } from '../types/product'
+import type { Product } from '../../types/product'
 import ProductCard from './ProductCard'
-import './ProductGrid.css'
+import '../css/ProductGrid.css'
 
 interface ProductGridProps {
   products: Product[]
