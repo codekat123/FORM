@@ -1,10 +1,10 @@
 export interface CartItem {
-  ProductId: string
-  name: string
-  price: string
-  image: string
-  selectedVariant: string | null
-  quantity: number
+  productId: string;
+  name: string;
+  price: number;
+  image: string;
+  selectedVariant: string | null;
+  quantity: number;
 }
 
 export interface CartState {

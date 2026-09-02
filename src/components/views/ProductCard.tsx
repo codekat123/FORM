@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { Product } from '../../types/product'
+import { useCart } from '../../hooks/useCart'
 import '../css/ProductCard.css'
 
 function ProductCard({ product }: { product: Product }) {
@@ -10,7 +11,22 @@ function ProductCard({ product }: { product: Product }) {
     'next' | 'previous'
   >('next')
 
+  const { addItem } = useCart()
   const hasMultipleImages = product.images.length > 1
+
+  function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    addItem({
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0] ?? '',
+      selectedVariant: null,
+      quantity: 1,
+    })
+  }
 
   function showPreviousImage(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
@@ -98,6 +114,23 @@ function ProductCard({ product }: { product: Product }) {
           </p>
         </div>
       </Link>
+
+      {product.variants.length === 0 ? (
+        <button
+          type="button"
+          className="product-card__buy-btn"
+          onClick={handleAddToCart}
+        >
+          Add to Bag
+        </button>
+      ) : (
+        <Link
+          to={`/shop/${product.id}`}
+          className="product-card__buy-btn"
+        >
+          Select Options
+        </Link>
+      )}
     </article>
   )
 }

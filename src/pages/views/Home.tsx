@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import formChargeImage from '../../assets/products/form-charge.png'
-import { getCategoryPreview } from '../../services/products'
+import formLogoImage from '../../assets/form-logo.jpg'
+import { getCategoryPreview, getProducts } from '../../services/products'
+import type { Product } from '../../types/product'
+import ProductCard from '../../components/views/ProductCard'
 import '../css/Home.css'
 
 const COLLECTIONS = [
@@ -43,7 +45,10 @@ function Home() {
     string | null
   >(null)
 
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
+
   useEffect(() => {
+    // Fetch collections
     Promise.all(
       COLLECTIONS.map(async (collection) => {
         const product = await getCategoryPreview(
@@ -75,11 +80,16 @@ function Home() {
       .finally(() => {
         setIsLoadingCollections(false)
       })
+
+    getProducts()
+      .then((data) => {
+        setFeaturedProducts(data.products.slice(0, 4))
+      })
+      .catch((err) => console.error('Failed to load featured products', err))
   }, [])
 
   return (
     <main className="home">
-      {/* Hero */}
 
       <section className="hero">
         <div className="container hero__grid">
@@ -118,13 +128,13 @@ function Home() {
           <div className="hero__visual">
             <div className="hero__visual-label">
               <span>FORM</span>
-              <span>Wireless charging</span>
+              <span>The Brand</span>
             </div>
 
             <img
               className="hero__product"
-              src={formChargeImage}
-              alt="FORM Charge wireless charging dock"
+              src={formLogoImage}
+              alt="FORM Brand Logo"
             />
 
             <span className="hero__visual-index">
@@ -133,8 +143,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      {/* Brand statement */}
 
       <section className="statement">
         <div className="container">
@@ -166,7 +174,25 @@ function Home() {
         </div>
       </section>
 
-      {/* Collections */}
+      {featuredProducts.length > 0 && (
+        <section className="featured-products">
+          <div className="container">
+            <header className="featured-products__header">
+              <h2 className="featured-products__title">Featured Products</h2>
+              <Link to="/shop" className="featured-products__link">
+                Shop All
+                <span aria-hidden="true">→</span>
+              </Link>
+            </header>
+
+            <div className="featured-products__grid">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="collections">
         <div className="container">
@@ -267,8 +293,6 @@ function Home() {
             )}
         </div>
       </section>
-
-      {/* Closing CTA */}
 
       <section className="closing">
         <div className="container">

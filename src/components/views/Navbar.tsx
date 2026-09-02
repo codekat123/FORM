@@ -1,7 +1,11 @@
 import { Link, NavLink } from 'react-router-dom'
+import { useCart } from '../../hooks/useCart'
 import '../css/Navbar.css'
 
 function Navbar() {
+  const { items } = useCart()
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
+
   return (
     <header className="navbar">
       <div className="container navbar__inner">
@@ -34,7 +38,7 @@ function Navbar() {
         </nav>
 
         <Link className="navbar__cart" to="/cart">
-          <span>Cart</span>
+          <span>Cart{itemCount > 0 && ` (${itemCount})`}</span>
           <span className="navbar__cart-arrow" aria-hidden="true">
             →
           </span>

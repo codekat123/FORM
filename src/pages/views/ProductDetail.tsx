@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { getProduct } from '../../services/products'
+import { useCart } from '../../hooks/useCart'
 import type { Product } from '../../types/product'
 import '../css/ProductDetails.css'
 
 function ProductDetails() {
   const { productId } = useParams<{ productId: string }>()
+  const { addItem } = useCart()
+  const navigate = useNavigate()
 
   const [product, setProduct] = useState<Product | null>(null)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -14,6 +17,7 @@ function ProductDetails() {
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
     null
   )
+  const [isAdded, setIsAdded] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -79,6 +83,37 @@ function ProductDetails() {
         </div>
       </main>
     )
+  }
+
+  const handleBuyNow = () => {
+    if (!product) return
+
+    addItem({
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0] ?? '',
+      selectedVariant: selectedVariantId,
+      quantity: 1,
+    })
+
+    navigate('/checkout')
+  }
+
+  const handleAddToCart = () => {
+    if (!product) return
+
+    addItem({
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0] ?? '',
+      selectedVariant: selectedVariantId,
+      quantity: 1,
+    })
+
+    setIsAdded(true)
+    setTimeout(() => setIsAdded(false), 1500)
   }
 
   return (
@@ -195,15 +230,29 @@ function ProductDetails() {
               </div>
             )}
 
-            <button
-              type="button"
-              className="product-details__add-btn"
-              disabled={product.stock === 0}
-            >
-              {product.stock > 0
-                ? `Add to Bag — $${product.price.toFixed(2)}`
-                : 'Out of Stock'}
-            </button>
+            <div className="product-details__actions">
+              <button
+                type="button"
+                className={`product-details__add-btn${isAdded ? ' product-details__add-btn--added' : ''}`}
+                disabled={product.stock === 0 || isAdded}
+                onClick={handleAddToCart}
+              >
+                {product.stock === 0
+                  ? 'Out of Stock'
+                  : isAdded
+                    ? 'Added ✓'
+                    : `Add to Bag — $${product.price.toFixed(2)}`}
+              </button>
+
+              <button
+                type="button"
+                className="product-details__buy-now-btn"
+                disabled={product.stock === 0}
+                onClick={handleBuyNow}
+              >
+                Buy Now
+              </button>
+            </div>
           </section>
         </div>
       </div>
