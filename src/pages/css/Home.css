@@ -706,8 +706,7 @@
   }
 
   .hero__visual {
-    width: min(100%, 600px);
-    margin-inline: auto;
+    display: none;
   }
 
   .hero__visual-label {
@@ -771,7 +770,10 @@
 
     padding: var(--space-5);
   }
-
+  .featured-products__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
 
   /* Closing */
 
@@ -784,12 +786,15 @@
   }
 }
 
-
 /* =========================================================
    Small mobile
    ========================================================= */
 
 @media (max-width: 480px) {
+  .hero__visual {
+    display: none;
+  }
+
   .hero__title {
     font-size: clamp(2.8rem, 14vw, 4rem);
   }
@@ -809,6 +814,13 @@
   .hero__visual-label,
   .hero__visual-index {
     font-size: 0.55rem;
+  }
+
+  /* Featured Products */
+
+  .featured-products__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
   }
 
   .statement__title,
@@ -832,8 +844,6 @@
     font-size: clamp(2.8rem, 13vw, 4.5rem);
   }
 }
-
-
 /* =========================================================
    Reduced motion
    ========================================================= */

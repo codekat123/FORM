@@ -1,29 +1,17 @@
-export interface User {
-  id: number
+type RegisterData = {
   username: string
   email: string
-  firstName: string
-  lastName: string
-  gender: string
-  image: string
-  token: string
+  password: string
 }
 
-export async function login(username: string, password: string): Promise<User> {
-  const response = await fetch('https://dummyjson.com/auth/login', {
+export async function register(data: RegisterData) {
+  const response = await fetch('https://dummyjson.com/users/add', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      username,
-      password,
-      expiresInMins: 60,
-    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
   })
-
-  if (!response.ok) {
-    const errorData = await response.json()
-    throw new Error(errorData.message || 'Invalid username or password')
-  }
 
   return response.json()
 }
