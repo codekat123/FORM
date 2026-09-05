@@ -1,19 +1,49 @@
+import { useState } from 'react'
 import { register } from '../../services/auth'
+import { useNavigate } from 'react-router-dom'
 import '../css/register.css'
 
 function Register() {
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
+
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    
     const formData = new FormData(event.currentTarget)
 
-    const result = await register({
-      username: formData.get('username') as string,
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-    })
+    const password = formData.get('password') as string
+    const confirmPassword = formData.get('confirm-password') as string
 
-    console.log(result)
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.')
+      return
+    }
+
+    setError('')
+    setIsLoading(true)
+
+    try {
+      const result = await register({
+        username: formData.get('username') as string,
+        email: formData.get('email') as string,
+        password,
+      })
+
+      navigate('/login')
+    }
+    catch (error){
+    if (error instanceof Error) {
+      setError(error.message)
+    } else {
+    setError("Registration failed. Please Try again.")
+      }
+    }
+    finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -55,6 +85,7 @@ function Register() {
                   type="text"
                   autoComplete="username"
                   placeholder="Your username"
+                  required
                 />
               </div>
 
@@ -66,6 +97,7 @@ function Register() {
                   type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
+                  required
                 />
               </div>
 
@@ -77,6 +109,7 @@ function Register() {
                   type="password"
                   autoComplete="new-password"
                   placeholder="Create a password"
+                  required
                 />
               </div>
 
@@ -88,11 +121,25 @@ function Register() {
                   type="password"
                   autoComplete="new-password"
                   placeholder="Repeat your password"
+                  required
                 />
               </div>
 
-              <button className="register__submit" type="submit">
-                <span>Create Account</span>
+              {error && (
+                <p className="register__error" role="alert">
+                  {error}
+                </p>
+              )}
+
+              <button
+                className="register__submit"
+                type="submit"
+                disabled={isLoading}
+              >
+                <span>
+                  {isLoading ? 'Creating...' : 'Create Account'}
+                </span>
+
                 <span className="register__submit-arrow">→</span>
               </button>
             </form>
